@@ -1,15 +1,19 @@
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import "./App.css";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
-import { ToastContainer, toast } from "react-toastify";
+
+import { ApiResponse } from "./Global.types";
 import { Image } from "./Global.types";
-import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [images, setImages] = useState<Image[]>([]);
@@ -59,7 +63,7 @@ function App() {
       try {
         setIsLoading(true);
 
-        const { data } = await axios.get(
+        const { data }: { data: ApiResponse } = await axios.get(
           `https://api.unsplash.com/search/photos/?client_id=qLSFnTXSNcWdo-WRETHz-Kj8eWsKPK6tzOx6jYGukQI&page=${page}&query=${searchValue}&per_page=12`
         );
 
